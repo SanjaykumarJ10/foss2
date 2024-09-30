@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Blog Post Creator</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #3498db, #8e44ad);
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+        }
+
+        /* Blog Container */
+        #blogContainer {
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .input-field {
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+
+        .input-field input,
+        .input-field textarea {
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            outline: none;
+            background: linear-gradient(145deg, #ecf0f1, #bdc3c7);
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-field input:focus,
+        .input-field textarea:focus {
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border-color: #8e44ad;
+            box-shadow: 0px 6px 15px rgba(142, 68, 173, 0.3);
+        }
+
+        .input-field textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Post Footer with Buttons */
+        #postFooter {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #postFooter button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        #postFooter button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Preview Section */
+        #previewContainer {
+            width: 100%;
+            max-width: 900px;
+            background: #f0f4f8;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 40px;
+            display: none;
+        }
+
+        .preview-title {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .preview-content {
+            font-size: 1.2rem;
+            color: #333;
+            text-align: justify;
+        }
+
+        /* Saved Posts Section */
+        #savedPosts {
+            margin-top: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .saved-post {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .saved-post h3 {
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .saved-post p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Create a Blog Post</h1>
+
+    <div id="blogContainer">
+        <div class="input-field">
+            <label for="title">Blog Title</label>
+            <input type="text" id="title" placeholder="Enter your blog title here...">
+        </div>
+
+        <div class="input-field">
+            <label for="blog">Blog Content</label>
+            <textarea id="blog" placeholder="Enter your blog content here..."></textarea>
+        </div>
+
+        <div id="postFooter">
+            <button onclick="previewPost()">Preview Post</button>
+            <button onclick="submitPost()">Submit Post</button>
+            <button onclick="viewSavedPosts()">View Saved Posts</button>
+        </div>
+    </div>
+
+    <div id="previewContainer">
+        <h2 class="preview-title" id="previewTitle"></h2>
+        <p class="preview-content" id="previewContent"></p>
+    </div>
+
+    <div id="savedPosts" style="display: none;">
+        <h2>Saved Posts</h2>
+        <div id="postsList"></div>
+    </div>
+
+    <script>
+        // Function to preview the post
+        function previewPost() {
+            const title = document.getElementById('title').value;
+            const blogContent = document.getElementById('blog').value;
+
+            if (title.trim() && blogContent.trim()) {
+                document.getElementById('previewTitle').innerText = title;
+                document.getElementById('previewContent').innerText = blogContent;
+                document.getElementById('previewContainer').style.display = 'block';
+            } else {
+                alert('Please fill in both the title and blog content.');
+            }
+        }
+
+        // Function to submit the post and save it to local storage
+        function submitPost() {
+            const title = document.getElementById('title').value;
+            const blogContent = document.getElementById('blog').value;
+
+            if (title.trim() && blogContent.trim()) {
+                const post = { title, blogContent };
+                let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts.push(post);
+                localStorage.setItem('posts', JSON.stringify(posts));
+                alert('Blog submitted and saved successfully!');
+
+                // Clear input fields and preview
+                document.getElementById('title').value = '';
+                document.getElementById('blog').value = '';
+                document.getElementById('previewContainer').style.display = 'none';
+            } else {
+                alert('Please fill in both the title and blog content.');
+            }
+        }
+
+        // Function to view saved posts from local storage
+        function viewSavedPosts() {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const postsList = document.getElementById('postsList');
+
+            postsList.innerHTML = '';
+
+            if (posts.length > 0) {
+                posts.forEach((post, index) => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('saved-post');
+                    postElement.innerHTML = `
+                        <h3>${post.title}</h3>
+                        <p>${post.blogContent}</p>
+                        <button onclick="deletePost(${index})">Delete Post</button>
+                    `;
+                    postsList.appendChild(postElement);
+                });
+                document.getElementById('savedPosts').style.display = 'block';
+            } else {
+                alert('No saved posts to display.');
+            }
+        }
+
+        // Function to delete a specific post
+        function deletePost(index) {
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            posts.splice(index, 1);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            viewSavedPosts();
+        }
+    </script>
+</body>
+
+</html>

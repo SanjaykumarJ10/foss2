@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Platform</title>
+    <style>
+        /* Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        h1 {
+            margin-bottom: 30px;
+            font-size: 3rem;
+            color: #4a90e2;
+            text-align: center;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        /* Link Styles */
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: 2px solid transparent;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            margin: 15px;
+            font-size: 1.3rem;
+            background-color: #4a90e2;
+            display: inline-block;
+        }
+
+        a:hover {
+            background-color: #357ABD;
+            transform: translateY(-5px);
+        }
+
+        /* Navigation Styles */
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styles */
+        .toggle-btn {
+            background-color: #4a90e2;
+            color: #fff;
+            padding: 12px 24px;
+            border: 2px solid #4a90e2;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .toggle-btn:hover {
+            background-color: #357ABD;
+            transform: translateY(-3px);
+        }
+
+        /* Dark Mode Styles */
+        .dark-mode {
+            background-color: #121212;
+            color: #eaeaea;
+        }
+
+        .dark-mode h1 {
+            color: #FFD700;
+        }
+
+        .dark-mode a {
+            background-color: #FFD700;
+            color: #222;
+        }
+
+        .dark-mode a:hover {
+            background-color: #FFA500;
+        }
+
+        .dark-mode .toggle-btn {
+            background-color: #FFD700;
+            color: #222;
+            border-color: #FFD700;
+        }
+
+        .dark-mode .toggle-btn:hover {
+            background-color: #FFA500;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            a {
+                padding: 10px 25px;
+                font-size: 1.2rem;
+            }
+
+            .toggle-btn {
+                padding: 10px 20px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the Blog Platform</h1>
+    <div class="nav-links">
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+        <a href="posts.html">View Posts</a>
+    </div>
+
+    <button class="toggle-btn" onclick="toggleTheme()">Toggle Dark Mode</button>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+
+</html>
